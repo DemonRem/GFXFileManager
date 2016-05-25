@@ -374,9 +374,7 @@ searchresult_t* CWFileManager::FindFirstFile(searchresult_t* search, char* patte
 		entry->timestamp.dwLowDateTime = 0x80000;
 
 		entry->size = 1337;
-
-
-
+		
 		strcpy_s(entry->name, sizeof(entry->name), "Benis.txt");
 		
 		this->bListMoreFiles--;
@@ -407,8 +405,8 @@ int CWFileManager::FindNextFile(searchresult_t* search, result_entry_t* entry) {
 	return 0;
 }
 
-int CWFileManager::FindClose(int a) {
-	debug(DEBUG_SEARCH, "WFM::FindClose(%08x) = 0\n", a);
+int CWFileManager::FindClose(searchresult_t* search) {
+	debug(DEBUG_SEARCH, "WFM::FindClose(%08x) = 0\n", search);
 
 	// Should always return 1 ...
 	this->bListMoreFiles = 1;
