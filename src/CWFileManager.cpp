@@ -465,7 +465,7 @@ int CWFileManager::Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) {
 
 	int ret = SetFilePointer((HANDLE)hFile, lDistanceToMove, 0, dwMoveMethod);
 	
-	debug(DEBUG_FILE, "WFM::Seek(%08x, %d, %d) = %d\n", hFile, lDistanceToMove, dwMoveMethod);
+	debug(DEBUG_IO, "WFM::Seek(%08x, %d, %d) = %d\n", hFile, lDistanceToMove, dwMoveMethod);
 
 	return ret;
 }
