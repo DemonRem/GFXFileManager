@@ -537,14 +537,14 @@ int CWFileManager::file_exists(char* name, int flags) {
 		ret = -1; // File not found
 	}
 
-	debug(DEBUG_FILE, "WFM::file_exists(\"%s\", %08x) = %d", name, flags, ret);
+	debug(DEBUG_FILE, "WFM::file_exists(\"%s\", %08x) = %d\n", name, flags, ret);
 
 	return ret;
 }
 
 int CWFileManager::Function_49(void) {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function_49() = 0");
+	debug(DEBUG_UNKNOWN, "WFM::Function_49() = 0\n");
 
 
 	return 0;
@@ -552,7 +552,7 @@ int CWFileManager::Function_49(void) {
 
 int CWFileManager::Function_50(int a) {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function_50(0x%08x) = 0", a);
+	debug(DEBUG_UNKNOWN, "WFM::Function_50(0x%08x) = 0\n", a);
 
 
 	return 0;
@@ -560,7 +560,7 @@ int CWFileManager::Function_50(int a) {
 
 int CWFileManager::Function53(int a) {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function53(0x%08x) = 0", a);
+	debug(DEBUG_UNKNOWN, "WFM::Function53(0x%08x) = 0\n", a);
 
 
 	return 0;
@@ -568,7 +568,7 @@ int CWFileManager::Function53(int a) {
 
 int CWFileManager::Function54() {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function54() = 0");
+	debug(DEBUG_UNKNOWN, "WFM::Function54() = 0\n");
 
 	return 0;
 }
