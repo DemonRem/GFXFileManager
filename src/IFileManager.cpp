@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "IFileManager.h"
 #include <iostream>
+#include <iomanip>
 
 int IFileManager::getVersion(void) {
 	std::cout << "FM::getVersion()";
@@ -12,7 +13,7 @@ int IFileManager::checkVersion(int version) {
 	
 
 	if (version != FM_VERSION) {
-		std::cout << "FM::checkVersion(0x" << std::hex << version << ") = 0";
+		std::cout << "FM::checkVersion(" << std::showbase << std::hex << version << ") = 0";
 		
 		char buffer[256];
 
@@ -23,18 +24,18 @@ int IFileManager::checkVersion(int version) {
 		return 0;
 	}
 
-	std::cout << "FM::checkVersion(0x" << std::hex << version << ") = 1";
+	std::cout << "FM::checkVersion(" << std::showbase << std::hex << version << ") = 1";
 	return 1;
 };
 
 int IFileManager::ShowDialog(int* initstruct) {
-	std::cout << "FM::checkVersion(0x" << std::hex << initstruct << ") = 0";
+	std::cout << "FM::checkVersion(" << std::showbase << std::hex << initstruct << ") = 0";
 
 	return 0;
 };
 
 int IFileManager::Function_48(int funptr, int b, int c) {
-	std::cout << "FM::Function_48(0x" << std::hex << funptr << ", " << b << ", " << c << ") = 1";
+	std::cout << "FM::Function_48(" << std::showbase << std::hex << funptr << ", " << b << ", " << c << ") = 1";
 	return 1;
 }
 
