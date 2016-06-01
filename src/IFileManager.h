@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <stdio.h>
 
+#include <string>
+
 #include "shit_t.h"
 #include "CJArchiveFm.h"
 #include "searchresult.h"
@@ -68,7 +70,7 @@ public:
 	// - filename: filename, relative to current dir or absolute path inside archive
 	// - access: 0 for open-existing, 0x80000000 for open and share_read, 0x40000000 for create_always
 	// - unknown: not used for original CWFileManager
-	virtual int Open2(CJArchiveFm* fm, const char *filename, int access, int unknown) = 0;
+	virtual int Open2(CJArchiveFm* fm, std::string *filename, int access, int unknown) = 0;
 
 	// Open a file inside the container using a path
 	// Parameter:
@@ -77,10 +79,10 @@ public:
 	// - unknown: not used for original CWFileManager
 	// Return:
 	// Handle of opened file (can be any number or pointer) or -1 if opening is was unsuccessful
-	virtual int Open(const char *filename, int access, int unknown) = 0; //
+	virtual int Open(std::string *filename, int access, int unknown) = 0; //
 
-	virtual int Function_12(void) = 0; //return -1
-	virtual int Function_13(void) = 0; //return 0
+	virtual int Open2_Old(CJArchiveFm* fm, const char *filename, int access, int unknown) = 0; //return -1
+	virtual int Open_Old(const char *filename, int access, int) = 0; //return 0
 	virtual int Function_14(int, int, int) = 0; //
 	virtual int Function_15(char* fullpath, int) = 0; //
 

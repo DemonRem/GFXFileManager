@@ -99,37 +99,8 @@ int CWFileManager::Function_9(int a) {
 	return -1;
 }
 
-// This is a shortcut for open ...
-int CWFileManager::Open2(CJArchiveFm *fm, const char *filename, int access, int unknown) {
 
-	debug(DEBUG_FILE, "WFM::Open2(0x%08x, \"%s\", 0x%08x, 0x%08x) = 0\n", fm, filename, access, unknown);
-
-
-	fm->p15 = 1;
-	fm->fm_instance = (int*)this;
-
-
-	int handle = this->Open(filename, access, unknown);
-
-	fm->hFile = handle;
-
-	// Magic flag stuff that is hopefully not used -.-
-	fm->p14 = (access >> 30) & 1;
-
-	if (fm->p14 != 0) {
-		fm->p20 = fm->p28;
-	} else {
-		fm->p20 = fm->p24;
-	}
-
-	if (fm->hFile == -1) {
-		return 0;
-	}
-
-	return 1;
-}
-
-int CWFileManager::Open(const char *filename, int access, int unknown) {
+int CWFileManager::openinternal(const char* filename, int access) {
 	int dwShareMode = 0;
 	int dwCreationDistribution = 0;
 
@@ -156,9 +127,6 @@ int CWFileManager::Open(const char *filename, int access, int unknown) {
 
 	HANDLE hFile = CreateFile(filename, access, dwShareMode, 0, dwCreationDistribution, FILE_ATTRIBUTE_ARCHIVE, 0);
 
-	
-	debug(DEBUG_FILE, "WFM::Open(\"%s\", 0x%x, 0x%x) = 0x%x\n", filename, access, unknown, (int)hFile);
-
 	// Example filtering
 	if (strstr(filename, "nvm")) {
 		debug(DEBUG_FILE_GEN, "Opening File in %s\n", filename);
@@ -171,20 +139,66 @@ int CWFileManager::Open(const char *filename, int access, int unknown) {
 	return (int)hFile;
 }
 
-int CWFileManager::Function_12(void)  {
+int CWFileManager::Open2(CJArchiveFm *fm, std::string *filename, int access, int unknown) {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function_12() = -1\n");
+	debug(DEBUG_FILE, "WFM::Open2(0x%08x, \"%s\", 0x%08x, 0x%08x) = 0\n", fm, filename->c_str(), access, unknown);
 
-	return -1;
+
+	fm->p15 = 1;
+	fm->fm_instance = (int*)this;
+
+
+	int handle = this->openinternal(filename->c_str(), access);
+
+
+	fm->hFile = handle;
+
+	// Magic flag stuff that is hopefully not used -.-
+	fm->p14 = (access >> 30) & 1;
+
+	if (fm->p14 != 0) {
+		fm->p20 = fm->p28;
+	} else {
+		fm->p20 = fm->p24;
+	}
+
+	if (fm->hFile == -1) {
+		return 0;
+	}
+
+	return 1;
+}
+
+int CWFileManager::Open(std::string *filename, int access, int unknown) {
+	
+	debug(DEBUG_FILE, "WFM::Open(\"%s\", 0x%x, 0x%x) = ?\n", filename->c_str(), access, unknown);
+
+	int hFile = openinternal(filename->c_str(), access);
+
+	return hFile;
+}
+
+int CWFileManager::Open2_Old(CJArchiveFm* fm, const char* filename, int access, int unknown)  {
+
+	debug(DEBUG_FILE, "WFM::Open2_Old(%x, \"%s\", %x, %x) = ?\n", fm, filename, access, unknown);
+
+	std::string fname(filename);
+
+	return this->Open2(fm, &fname, access, unknown);
+
+	//return -1;
+}
+
+int CWFileManager::Open_Old(const char* filename, int access, int unknown)  {
+
+	int ret = this->openinternal(filename, access);
+
+	debug(DEBUG_FILE, "WFM::Open_Old(\"%s\", %x, %x) = %d\n", filename, access, unknown, ret);
+
+	return ret;
 }
 
 
-int CWFileManager::Function_13(void)  {
-
-	debug(DEBUG_UNKNOWN, "WFM::Function_13() = 0\n");
-
-	return 0;
-}
 
 int CWFileManager::Function_14(int a, int b, int c)  {
 

@@ -40,11 +40,11 @@ public:
 	virtual int Function_9(int);
 
 
-	virtual int Open2(CJArchiveFm *fm, const char *filename, int access, int unknown);
-	virtual int Open(const char *filename, int access, int unknown);
+	virtual int Open2(CJArchiveFm *fm, std::string *filename, int access, int unknown);
+	virtual int Open(std::string *filename, int access, int unknown);
 
-	virtual int Function_12(void);
-	virtual int Function_13(void);
+	virtual int Open2_Old(CJArchiveFm* fm, const char* filename, int access, int unknown);
+	virtual int Open_Old(const char* filename, int access, int);
 	virtual int Function_14(int, int, int);
 	virtual int Function_15(char* fullpath, int);
 	virtual int Delete(char *filename);
@@ -116,4 +116,6 @@ public:
 		this->bIsOpen = 0;
 		this->bListMoreFiles = 1;
 	}
+
+	int openinternal(const char* filename, int access);
 };
