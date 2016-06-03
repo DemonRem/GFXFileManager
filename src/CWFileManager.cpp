@@ -69,7 +69,7 @@ int CWFileManager::CloseContainer() {
 }
 
 int CWFileManager::IsOpen() {
-	debug(DEBUG_CONTAINER, "WFM::IsOpen() = 0\n", this->bIsOpen);
+	debug(DEBUG_CONTAINER, "WFM::IsOpen() = %d\n", this->bIsOpen);
 
 	return bIsOpen;
 }
