@@ -368,14 +368,14 @@ searchresult_t* CWFileManager::FindFirstFile(searchresult_t* search, char* patte
 		
 		search->success = 1;
 
-		entry->type = ENTRY_FILE;
+		entry->type = ENTRY_FOLDER;
 
 		
 		entry->timestamp.dwLowDateTime = 0x80000;
 
 		entry->size = 1337;
 		
-		strcpy_s(entry->name, sizeof(entry->name), "Benis.txt");
+		strcpy_s(entry->name, sizeof(entry->name), "TestingEntry");
 		
 		this->bListMoreFiles--;
 	}
@@ -396,7 +396,7 @@ int CWFileManager::FindNextFile(searchresult_t* search, result_entry_t* entry) {
 
 		entry->type = ENTRY_FILE;
 
-		strcpy_s(entry->name, sizeof(entry->name), "Benis.txt");
+		strcpy_s(entry->name, sizeof(entry->name), "TestingFile.txt");
 		
 		this->bListMoreFiles--;
 	}
