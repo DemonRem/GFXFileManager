@@ -2,7 +2,7 @@
 
 This code will utilize existing GFXFileManager-libraries and make them show the contents of their container.
 
-![cool image](https://github.com/florian0/GFXFileManager/blob/master/doc/interface-example-file-listing.png)
+![cool image](https://raw.githubusercontent.com/florian0/GFXFileManager/master/doc/example-file-listing.png)
 
 
 ```
