@@ -1,0 +1,121 @@
+#pragma once
+
+#include "IFileManager.h"
+
+
+class CPFileManager : public IFileManager {
+private:
+	char root_dir[260]; //0x0004 
+	char current_dir[260]; //0x0108 guessed ???
+	__int32 bIsOpen; //0x020C 
+	char pad_0x0210[0xC]; //0x0210
+	DWORD mainModuleHandle; //0x021C Get by function_8 
+	
+	char pad_0x0220[0x1C]; //0x0220
+	unsigned char bSomething; //0x023C bool
+	
+	char pad_0x023D[0x2B]; //0x023D
+	
+	error_handler_t error_handler; //0x0268 set by fun_A4 
+	DWORD hwnd; //0x026C 
+	
+	char pad_0x0270[0x1D0]; //0x0270
+
+
+	int bListMoreFiles;
+
+
+public:
+	virtual int Mode(void);
+	virtual int Function_1(int, int);
+	virtual int Function_2(int, int);
+
+	virtual int CreateContainer(const char *filename,  const char *password);
+	virtual int OpenContainer(const char *filename, const char* password, int mode);
+	virtual int CloseContainer(void);
+	virtual int IsOpen(void);
+
+	virtual int CloseAllFiles(void);
+	virtual int MainModuleHandle(void);
+	virtual int Function_9(int);
+
+
+	virtual int Open2(CJArchiveFm *fm, const char *filename, int access, int unknown);
+	virtual int Open(const char *filename, int access, int unknown);
+
+	virtual int Function_12(void);
+	virtual int Function_13(void);
+	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown); //
+	virtual int Create2(const char* filename, int unknown); //
+
+	virtual int Delete(const char *filename);
+	virtual int Close(int index);
+
+	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToRead, unsigned long *lpNumberOfBytesRead);
+	virtual int Write(int hFile, const char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten);
+
+
+	virtual char* CmdLinePath(void);
+	virtual char* CmdLineArgs(void); 
+
+
+	virtual void getShit(shit_t* shit); //get shit
+	virtual int setShit(int a, int b); //set shit
+
+	
+	virtual int CreateDirectory(const char* name);
+	virtual int RemoveDirectory(const char* name);
+
+	virtual bool ResetDirectory(void);
+	virtual bool ChangeDirectory(const char* dirname);
+	virtual int GetDirectoryName(size_t buffersize, char* Dst);
+
+	virtual int SetVirtualPath(const char *path);
+	virtual int GetVirtualPath(char* dest);
+	
+	// Listing files 
+	virtual searchresult_t* FindFirstFile(searchresult_t* search, const char* pattern, result_entry_t* entry);
+	virtual int FindNextFile(searchresult_t* search, result_entry_t* entry);
+	virtual int FindClose(searchresult_t* search);
+
+	// File information
+	virtual int FileNameFromHandle(int hFile, char* dst, size_t count); //GetFileName
+	virtual int GetFileSize(int hFile, LPDWORD lpFileSizeHigh); //
+
+	virtual BOOL GetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime); //
+	virtual BOOL SetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime); //
+
+	virtual int Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod);
+
+
+	// error control
+	virtual int GetHwnd(void);
+	virtual void SetHwnd(int);
+	virtual void RegisterErrorHandler(error_handler_t callback);
+
+
+	// Importing
+	virtual int ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) ;
+	virtual int ImportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir);
+	virtual int ExportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir);
+	virtual int ExportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir); // create_target_dir is unused
+
+
+
+
+	virtual int FileExists(char* name, int flags);
+
+
+	virtual int UpdateCurrentDirectory(void);
+	virtual int Function_50(int);
+
+	virtual int Function53(int); //
+	virtual int Function54(); //
+
+	virtual ~CPFileManager() { };
+
+	CPFileManager() {
+		this->bIsOpen = 0;
+		this->bListMoreFiles = 1;
+	}
+};

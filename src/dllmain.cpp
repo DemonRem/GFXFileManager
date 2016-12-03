@@ -2,7 +2,8 @@
 #include <Windows.h>
 #include <stdio.h>
 
-#include "CWFileManager.h"
+#include "CPFileManager.h"
+//#include "CWFileManager.h"
 #include "debug.h"
 
 HMODULE hInstance;
@@ -12,6 +13,8 @@ HMODULE hInstance;
 #define TARGET_VERSION 0x1007
 #define MODE_ARCHIVE 1
 #define MODE_FILESYSTEM 2
+
+extern FILE *dbgfile;
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved) {
 
@@ -23,7 +26,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved) {
 		AllocConsole();
 		freopen("CONOUT$", "w", stdout);
 
+		dbgfile = fopen("gfxlog.txt", "w");
+
 		DisableThreadLibraryCalls(hModule);
+	} else if (ulReason == DLL_PROCESS_DETACH) {
+
+		fclose(dbgfile);
+
 	}
 
 	return TRUE;
@@ -42,10 +51,9 @@ EXPORT int __stdcall  GFXDllCreateObject(int mode, IFileManager** object, int ve
 	}
 
 	if (mode == MODE_ARCHIVE) {
-		*object = new CWFileManager();
+		*object = new CPFileManager();
 	} else if (mode == MODE_FILESYSTEM) {
-		MessageBox(0, "This mode is not supported yet", "Unsupported mode", MB_OK|MB_APPLMODAL);
-		*object = 0;
+		*object = new CPFileManager();
 	} else {
 		*object = 0;
 	}
@@ -58,6 +66,3 @@ EXPORT void __stdcall GFXDllReleaseObject(IFileManager* object) {
 	delete object;
 }
 
-EXPORT void __stdcall GFXFMInfo() {
-
-}
