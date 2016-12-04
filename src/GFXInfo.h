@@ -6,13 +6,13 @@ struct gfxinfo_t
 {
   char in_use;
   int index;
-  int field_8;
+  int number_of_open_files;
   char filename[256];
   int field_10C;
   int field_110;
   int field_114;
-  int field_118;
-  int field_11C;
+  int number_of_bytes_processed_total;
+  int number_of_bytes_processed_total_2; // really unsure
   SYSTEMTIME timestamp;
   int pid;
   int field_134;
