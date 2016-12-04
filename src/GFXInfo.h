@@ -11,8 +11,8 @@ struct gfxinfo_t
   int field_10C;
   int field_110;
   int field_114;
-  int number_of_bytes_processed_total;
-  int number_of_bytes_processed_total_2; // really unsure
+  int number_of_bytes_processed_total_low;
+  int number_of_bytes_processed_total_high;
   SYSTEMTIME timestamp;
   int pid;
   int field_134;
