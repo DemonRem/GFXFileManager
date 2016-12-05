@@ -22,8 +22,8 @@ class IFileManager
 {
 public:
 	virtual int Mode(void) = 0; //returns the container-mode (1 for CP, 2 for CW)
-	virtual int Function_1(int, int) = 0; //
-	virtual int Function_2(int, int) = 0; //
+	virtual int ConfigSet(int, int) = 0; //
+	virtual int ConfigGet(int, int) = 0; //
 
 	//
 	// Container

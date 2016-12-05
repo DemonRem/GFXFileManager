@@ -27,8 +27,8 @@ private:
 
 public:
 	virtual int Mode(void);
-	virtual int Function_1(int, int);
-	virtual int Function_2(int, int);
+	virtual int ConfigSet(int, int);
+	virtual int ConfigGet(int, int);
 
 	virtual int CreateContainer(const char *filename,  const char *password);
 	virtual int OpenContainer(const char *filename, const char* password, int mode);

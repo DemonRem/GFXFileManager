@@ -10,20 +10,20 @@ int CPFileManager::Mode() {
 	return 1;
 }
 
-int CPFileManager::Function_1(int a, int b) {
+int CPFileManager::ConfigSet(int a, int b) {
 
 	if (a == 2) {
 		bSomething = (b == 0) ? 0 : 1;
 	}
 
-	debug(DEBUG_UNKNOWN, "WFM::Function_1(%d , %d) = 0\n", a, b);
+	debug(DEBUG_UNKNOWN, "WFM::ConfigSet(%d , %d) = 0\n", a, b);
 
 	return 0;
 }
 
-int CPFileManager::Function_2(int a, int b) {
+int CPFileManager::ConfigGet(int a, int b) {
 	
-	debug(DEBUG_UNKNOWN, "WFM::Function_2(%d , %d) = 0\n", a, b);
+	debug(DEBUG_UNKNOWN, "WFM::ConfigGet(%d , %d) = 0\n", a, b);
 
 	_ERROR_MSGBOX();
 
