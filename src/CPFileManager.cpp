@@ -101,30 +101,30 @@ int CPFileManager::Function_9(int a) {
 // This is a shortcut for open ...
 int CPFileManager::Open2(CJArchiveFm *fm, const char *filename, int access, int unknown) {
 
-	debug(DEBUG_FILE, "WFM::Open2(0x%08x, \"%s\", 0x%08x, 0x%08x) = 0\n", fm, filename, access, unknown);
+  debug(DEBUG_FILE, "WFM::Open2(0x%08x, \"%s\", 0x%08x, 0x%08x) = 0\n", fm, filename, access, unknown);
 
-	fm->p15 = 1;
-	fm->fm_instance = (int*)this;
+  fm->field_15 = 1;
+  fm->pFileManager = (int*)this;
 
 
-	int handle = this->Open(filename, access, unknown);
+  int handle = this->Open(filename, access, unknown);
 
-	fm->hFile = handle;
+  fm->hFile = handle;
 
-	// Magic flag stuff that is hopefully not used -.-
-	fm->p14 = (access >> 30) & 1;
+  // Magic flag stuff that is hopefully not used -.-
+  fm->is_write_mode = (access >> 30) & 1;
 
-	if (fm->p14 != 0) {
-		fm->p20 = fm->p28;
-	} else {
-		fm->p20 = fm->p24;
-	}
+  if (fm->is_write_mode != 0) {
+    fm->field_20 = fm->field_28;
+  } else {
+    fm->field_20 = fm->field_24;
+  }
 
-	if (fm->hFile == -1) {
-		return 0;
-	}
+  if (fm->hFile == -1) {
+    return 0;
+  }
 
-	return 1;
+  return 1;
 }
 
 int CPFileManager::Open(const char *filename, int access, int unknown) {
