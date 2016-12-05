@@ -3,6 +3,18 @@
 #include "IFileManager.h"
 #include "GFXInfo.h"
 
+#define SHOW_ERROR(msg, caption) \
+	do { \
+		if (error_handler) { \
+			if (!error_handler((HWND)1, msg, "false")) \
+				MessageBoxA(hwnd, msg, caption, MB_OK); \
+		} else { \
+			MessageBoxA(hwnd, msg, caption, MB_OK); \
+		} \
+	} \
+	while (0)
+
+
 class CWFileManager : public IFileManager {
 private:
 
