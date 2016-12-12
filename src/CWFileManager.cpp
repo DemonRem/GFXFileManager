@@ -126,7 +126,7 @@ int CWFileManager::Delete(const char *filename) {
  }
 
  int CWFileManager::GetNextFreeIndex() {
-	 auto it;
+	 std::hash_map<int, OpenFileInfo>::iterator it;
 
 	 // Note the potential lockup once you hit INT_MAX+1 open files
 	 // @TODO: Doublecheck and if true, prevent this shit
