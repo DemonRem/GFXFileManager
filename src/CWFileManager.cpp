@@ -5,9 +5,9 @@ int CWFileManager::Mode() {
 	return 2;
 }
 
-int CWFileManager::ConfigSet(int a2, int a3) {
-	if (a2 == 2) 
-		this->field_23C = a3 != 0;
+int CWFileManager::ConfigSet(int key, int value) {
+	if (key == 2) 
+		this->disallow_uppercase_filename = value != 0;
 
 	return 0;
 }
