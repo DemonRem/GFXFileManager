@@ -264,22 +264,22 @@ int CPFileManager::setShit(int a, int b) {
 }
 
 
-int CPFileManager::CreateDirectory(const char* name) {
+int CPFileManager::DirectoryCreate(const char* name) {
 
 	SetCurrentDirectory(this->current_dir);
-	int ret = CreateDirectory(name);
+	int ret = CreateDirectory(name, 0);
 
-	debug(DEBUG_DIRECTORY, "WFM::CreateDirectory(\"%s\") = 0x%x\n", name, ret);
+	debug(DEBUG_DIRECTORY, "WFM::DirectoryCreate(\"%s\") = 0x%x\n", name, ret);
 
 	return ret;
 }
 
-int CPFileManager::RemoveDirectory(const char* name) {
+int CPFileManager::DirectoryRemove(const char* name) {
 
 	SetCurrentDirectory(this->current_dir);
 	int ret = RemoveDirectory(name);
 
-	debug(DEBUG_DIRECTORY, "WFM::RemoveDirectory(\"%s\") = 0x%08x\n", name, ret);
+	debug(DEBUG_DIRECTORY, "WFM::DirectoryRemove(\"%s\") = 0x%08x\n", name, ret);
 
 	return ret;
 }

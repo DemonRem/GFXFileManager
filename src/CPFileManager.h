@@ -65,8 +65,8 @@ public:
 	virtual int setShit(int a, int b); //set shit
 
 	
-	virtual int CreateDirectory(const char* name);
-	virtual int RemoveDirectory(const char* name);
+	virtual int DirectoryCreate(const char* name);
+	virtual int DirectoryRemove(const char* name);
 
 	virtual bool ResetDirectory(void);
 	virtual bool ChangeDirectory(const char* dirname);

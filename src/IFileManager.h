@@ -140,12 +140,12 @@ public:
 	// Create a new directory in the container
 	// Parameter:
 	// - name: name of the directory
-	virtual int CreateDirectory(const char* name) = 0;
+	virtual int DirectoryCreate(const char* name) = 0;
 
 	// Delete a directory in the container
 	// Parameter:
 	// - name: name of the directory
-	virtual int RemoveDirectory(const char* name) = 0;
+	virtual int DirectoryRemove(const char* name) = 0;
 
 
 	virtual bool ResetDirectory(void) = 0; //
