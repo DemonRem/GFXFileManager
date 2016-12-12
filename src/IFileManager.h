@@ -65,14 +65,7 @@ public:
 	// Files
 	//
 
-	// Open a file inside the container using the CJArchiveFm-class
-	// Parameter:
-	// - fm: A valid pointer to the CJArchiveFm-class
-	// - filename: filename, relative to current dir or absolute path inside archive
-	// - access: 0 for open-existing, 0x80000000 for open and share_read, 0x40000000 for create_always
-	// - unknown: not used for original CPFileManager
-	virtual int Open(CJArchiveFm* fm, const char *filename, int access, int unknown) = 0;
-
+	
 	// Open a file inside the container using a path
 	// Parameter:
 	// - filename: filename, relative to current dir or absolute path inside archive
@@ -82,11 +75,21 @@ public:
 	// Handle of opened file (can be any number or pointer) or -1 if opening is was unsuccessful
 	virtual int Open(const char *filename, int access, int unknown) = 0; //
 
+
+	// Open a file inside the container using the CJArchiveFm-class
+	// Parameter:
+	// - fm: A valid pointer to the CJArchiveFm-class
+	// - filename: filename, relative to current dir or absolute path inside archive
+	// - access: 0 for open-existing, 0x80000000 for open and share_read, 0x40000000 for create_always
+	// - unknown: not used for original CPFileManager
+	virtual int Open(CJArchiveFm* fm, const char *filename, int access, int unknown) = 0;
+
 	virtual int Function_12(void) = 0; //return -1
 	virtual int Function_13(void) = 0; //return 0
 
-	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown) = 0; //
 	virtual int Create(const char* filename, int unknown) = 0; //
+	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown) = 0; //
+	
 
 	// Delete a file by name
 	// Parameter:
