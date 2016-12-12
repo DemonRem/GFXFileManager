@@ -1,5 +1,13 @@
 ﻿#include "CWFileManager.h"
 #include "GFXInfo.h"
+#include <limits>
+
+
+CWFileManager::CWFileManager()
+	: opened_files_ident(0) 
+{
+	
+}
 
 int CWFileManager::Mode() {
 	return 2;
@@ -64,6 +72,29 @@ int CWFileManager::Delete(const char *filename) {
 
  int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) {
 	 char full_filename[520];
+
+	 // Assemble path
+	 strcpy_s(full_filename, sizeof(full_filename), this->current_dir);
+	 strcat_s(full_filename, sizeof(full_filename), filename);
+
+	 // Restrict uppercase if set
+	 if (this->disallow_uppercase_filename) {
+		 for (const char *f = filename; *f; f++) {
+			 if (*f >= 'A' && *f <= 'Z') {
+				 char output[260];
+				 sprintf(output, "FM File(%s)\n", full_filename);
+				 OutputDebugString(output);
+			 }
+		 }
+	 }
+
+	 if (full_filename[0]) {
+
+		 // do stuff i do not understand
+
+
+	 }
+
 	 int dwShareMode = 0;
 	 int dwCreationDistribution = 0;
 
@@ -79,21 +110,42 @@ int CWFileManager::Delete(const char *filename) {
 	 HANDLE hFile = CreateFile(full_filename, dwDesiredAccess, dwShareMode, 0, dwCreationDistribution, FILE_ATTRIBUTE_ARCHIVE, 0);
 
 	 if (hFile == INVALID_HANDLE_VALUE) {
-
-		 if (this->error_handler) {
-			 if (!this->error_handler((HWND)1, "파일 열기 실패.", "false")) {
-				 MessageBox(this->hwnd, "파일 열기 실패.", 
-			 }
-		 } else {
-
-		 }
-
-
-
+		 SHOW_ERROR("Could not open file", "Caption");
+		 return -1;
 	 }
 
+	 int findex = GetNextFreeIndex();
+
+	 // Get Structure
+	 auto finfo = this->open_files[findex];
+
+	 // Populate Structure
+	 finfo.hFile;
+	 strcpy_s(finfo.filename, sizeof(finfo.filename), filename);
  }
 
+ int CWFileManager::GetNextFreeIndex() {
+	 auto it;
+
+	 // Note the potential lockup once you hit INT_MAX+1 open files
+	 // @TODO: Doublecheck and if true, prevent this shit
+	 do {
+		 if (++this->opened_files_ident >= INT_MAX)
+			 this->opened_files_ident = 1;
+
+		 it = open_files.find(this->opened_files_ident);
+
+	 } while (it != open_files.end());
+
+	 OpenFileInfo info;
+	 info.field_0 = this->opened_files_ident; // guessed
+
+	 // Copy this thing into the map
+	 // Also guessed, not sure what this looked like before.
+	 this->open_files[this->opened_files_ident] = info;
+
+	 return this->opened_files_ident;
+ }
 
 int CWFileManager::Function_12(void) {
 	return -1;
