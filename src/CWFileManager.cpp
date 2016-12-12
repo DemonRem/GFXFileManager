@@ -84,6 +84,7 @@ int CWFileManager::Delete(const char *filename) {
 				 char output[260];
 				 sprintf(output, "FM File(%s)\n", full_filename);
 				 OutputDebugString(output);
+				 return -1;
 			 }
 		 }
 	 }
