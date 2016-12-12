@@ -1,5 +1,7 @@
 #pragma once
 
+class IFileManager; // forward declare type to solve recursion
+
 #include "IFileManager.h"
 
 #pragma pack(push, 1)

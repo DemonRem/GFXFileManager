@@ -104,7 +104,7 @@ int CPFileManager::Open2(CJArchiveFm *fm, const char *filename, int access, int 
   debug(DEBUG_FILE, "WFM::Open2(0x%08x, \"%s\", 0x%08x, 0x%08x) = 0\n", fm, filename, access, unknown);
 
   fm->field_15 = 1;
-  fm->pFileManager = (int*)this;
+  fm->pFileManager = this;
 
 
   int handle = this->Open(filename, access, unknown);
