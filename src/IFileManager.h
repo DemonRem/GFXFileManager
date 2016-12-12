@@ -86,7 +86,7 @@ public:
 	virtual int Function_13(void) = 0; //return 0
 
 	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown) = 0; //
-	virtual int Create2(const char* filename, int unknown) = 0; //
+	virtual int Create(const char* filename, int unknown) = 0; //
 
 	// Delete a file by name
 	// Parameter:

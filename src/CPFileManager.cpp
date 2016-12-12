@@ -192,9 +192,9 @@ int CPFileManager::Create(CJArchiveFm * fm, const char * filename, int unknown) 
 	return 0;
 }
 
-int CPFileManager::Create2(const char* filename, int unknown) {
+int CPFileManager::Create(const char* filename, int unknown) {
 
-	debug(DEBUG_UNKNOWN, "WFM::Create2(\"%s\", %08x) = 0\n", filename, unknown);
+	debug(DEBUG_UNKNOWN, "WFM::Create(\"%s\", %08x) = 0\n", filename, unknown);
 
 	_ERROR_MSGBOX();
 

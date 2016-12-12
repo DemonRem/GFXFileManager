@@ -48,7 +48,7 @@ public:
 	virtual int Function_12(void);
 	virtual int Function_13(void);
 	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown); //
-	virtual int Create2(const char* filename, int unknown); //
+	virtual int Create(const char* filename, int unknown); //
 
 	virtual int Delete(const char *filename);
 	virtual int Close(int index);
