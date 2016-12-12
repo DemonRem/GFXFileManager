@@ -61,10 +61,16 @@ public:
 	virtual int Function_12(void); //return -1
 	virtual int Function_13(void); //return 0
 
+	
+	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown) = 0; //
+	virtual int Create(const char* filename, int unknown) = 0; //
+
+
 public:
 	CWFileManager();
 
 private:
 	int GetNextFreeIndex();
+	bool CreateDirectoryRecursive(const char* filename);
 
 };

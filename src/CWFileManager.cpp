@@ -126,6 +126,8 @@ int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) 
 
 	int findex = GetNextFreeIndex();
 
+	// TODO: GetNextFreeIndex will never return -1
+	// I'm not even sure if it did in the original implementation ...
 	if (findex == -1) {
 		SHOW_ERROR("Could not open file", "Caption");
 		return -1;
@@ -171,3 +173,65 @@ int CWFileManager::Function_12(void) {
 int CWFileManager::Function_13(void) {
 	return 0;
 }
+
+
+int Create(CJArchiveFm * fm, const char * filename, int unknown) {
+
+}
+
+int CWFileManager::Create(const char* filename, int unknown) {
+	if (this->CreateDirectoryRecursive(filename)) {
+		return this->Open(filename, GENERIC_READ, unknown);
+	}
+	
+	return -1;
+}
+
+// This method has a bug, see #16
+bool CWFileManager::CreateDirectoryRecursive(const char* filename) {
+	char buffer[512] = {0};
+	char *token;
+	
+	char previous_dir[512] = {0};
+
+	GetCurrentDirectory(sizeof(previous_dir), previous_dir);
+
+	// Original path for finding the last path separator
+	std::string original(filename);	
+	size_t pos = original.find_last_of('\\');
+
+	// Copy path without filename to new buffer	
+	memcpy(buffer, original.c_str(), pos);
+
+	// Start tokenizing
+	token = strtok(buffer, "\\");
+
+	// Growing path variable
+	std::string fullpath = "";
+
+	while (token != NULL) {
+		// Add current folder to path
+		fullpath += token;
+
+		// Create entire path
+		CreateDirectory(fullpath.c_str(), 0);
+
+		// Append separator
+		fullpath += "\\";
+
+		// Get next token
+		token = strtok(NULL, "\\");
+	}
+
+	// Check if directories were created
+	int result = 1;
+	if (!SetCurrentDirectory(fullpath.c_str())) {
+		result = 0;
+	}
+
+	// Reset directory to previous
+	SetCurrentDirectory(previous_dir);
+
+	return result;
+}
+
