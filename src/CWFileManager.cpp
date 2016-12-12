@@ -110,12 +110,21 @@ int CWFileManager::Delete(const char *filename) {
 
 	 HANDLE hFile = CreateFile(full_filename, dwDesiredAccess, dwShareMode, 0, dwCreationDistribution, FILE_ATTRIBUTE_ARCHIVE, 0);
 
+	 // Check if open file was successful
 	 if (hFile == INVALID_HANDLE_VALUE) {
-		 SHOW_ERROR("Could not open file", "Caption");
+		 char error_buffer[256];
+		 sprintf(error_buffer, "FM File(%s)\n", full_filename);
+		 OutputDebugString(error_buffer);
+
 		 return -1;
 	 }
 
 	 int findex = GetNextFreeIndex();
+
+	 if (findex == -1) {
+		 SHOW_ERROR("Could not open file", "Caption");
+		 return -1;
+	 }
 
 	 // Get Structure
 	 auto finfo = this->open_files[findex];
@@ -123,6 +132,9 @@ int CWFileManager::Delete(const char *filename) {
 	 // Populate Structure
 	 finfo.hFile;
 	 strcpy_s(finfo.filename, sizeof(finfo.filename), filename);
+
+
+	 return findex;
  }
 
  int CWFileManager::GetNextFreeIndex() {
