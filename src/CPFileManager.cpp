@@ -99,7 +99,7 @@ int CPFileManager::Function_9(int a) {
 }
 
 // This is a shortcut for open ...
-int CPFileManager::Open2(CJArchiveFm *fm, const char *filename, int access, int unknown) {
+int CPFileManager::Open(CJArchiveFm *fm, const char *filename, int access, int unknown) {
 
   debug(DEBUG_FILE, "WFM::Open2(0x%08x, \"%s\", 0x%08x, 0x%08x) = 0\n", fm, filename, access, unknown);
 

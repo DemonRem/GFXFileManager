@@ -3,8 +3,10 @@
 #include "IFileManager.h"
 
 
+
 class CPFileManager : public IFileManager {
 private:
+
 	char root_dir[260]; //0x0004 
 	char current_dir[260]; //0x0108 guessed ???
 	__int32 bIsOpen; //0x020C 
@@ -40,7 +42,7 @@ public:
 	virtual int Function_9(int);
 
 
-	virtual int Open2(CJArchiveFm *fm, const char *filename, int access, int unknown);
+	virtual int Open(CJArchiveFm *fm, const char *filename, int access, int unknown);
 	virtual int Open(const char *filename, int access, int unknown);
 
 	virtual int Function_12(void);
