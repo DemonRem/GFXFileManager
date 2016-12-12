@@ -89,11 +89,17 @@ int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) 
 		}
 	}
 
+	// Look for empty directory names (LUL)
 	if (full_filename[0]) {
-
-		// do stuff i do not understand
-
-
+		for (char *f = full_filename; *f; f++) {
+			if (*f == '\\' && *(f+1) == '\\')
+			{
+				char output[260];
+				sprintf(output, "FM File(%s)\n", full_filename);
+				OutputDebugString(output);
+				return -1;
+			}
+		}
 	}
 
 	int dwShareMode = 0;
@@ -115,7 +121,6 @@ int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) 
 		char error_buffer[256];
 		sprintf(error_buffer, "FM File(%s)\n", full_filename);
 		OutputDebugString(error_buffer);
-
 		return -1;
 	}
 
@@ -132,7 +137,6 @@ int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) 
 	// Populate Structure
 	finfo.hFile;
 	strcpy_s(finfo.filename, sizeof(finfo.filename), filename);
-
 
 	return findex;
 }
