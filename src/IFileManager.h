@@ -107,7 +107,7 @@ public:
 	// lpBuffer: pointer to reserved memory for read operation
 	// nNumberOfBytesToWrite: size of lpBuffer
 	// lpNumberOfBytesWritten: pointer to memory, will contain the number of bytes read from the file
-	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten) = 0;
+	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToRead, unsigned long *lpNumberOfBytesRead) = 0;
 
 	// Write a number of bytes to file
 	// Parameter:
