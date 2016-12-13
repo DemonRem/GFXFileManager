@@ -27,8 +27,7 @@ gfxinfo_t *open_container_info_write(const char *filename)
 	g_gfx_infos[cindex].in_use = 1;
 	g_gfx_infos[cindex].field_110 = 0;
 	g_gfx_infos[cindex].field_114 = 0;
-	g_gfx_infos[cindex].number_of_bytes_processed_total_low = 0;
-	g_gfx_infos[cindex].number_of_bytes_processed_total_high = 0;
+	g_gfx_infos[cindex].number_of_bytes_processed_total = 0;
 
 	strcpy_s(g_gfx_infos[cindex].filename, 0x100u, filename);
 
