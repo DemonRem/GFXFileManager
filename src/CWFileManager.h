@@ -74,6 +74,10 @@ public:
 	virtual int GetFileSize(int hFile, LPDWORD lpFileSizeHigh); //
 	virtual BOOL GetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime); //
 	virtual BOOL SetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime); //
+
+	virtual int Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod); //
+
+
 public:
 	CWFileManager();
 
