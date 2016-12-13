@@ -64,6 +64,10 @@ public:
 	
 	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown); //
 	virtual int Create(const char* filename, int unknown); //
+		
+	virtual char* CmdLinePath(void);
+	virtual char* CmdLineExe(void);
+
 
 	
 	//

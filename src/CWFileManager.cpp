@@ -2,11 +2,13 @@
 #include "GFXInfo.h"
 #include <limits>
 
+#include "commandine.h"
+
 
 CWFileManager::CWFileManager()
 	: opened_files_ident(0) 
 {
-
+	populate_cmdline();
 }
 
 int CWFileManager::Mode() {
@@ -233,6 +235,15 @@ bool CWFileManager::CreateDirectoryRecursive(const char* filename) {
 	SetCurrentDirectory(previous_dir);
 
 	return result;
+}
+
+
+char* CWFileManager::CmdLinePath(void) {
+	return get_cmdline_path();
+}
+
+char* CWFileManager::CmdLineExe(void) {
+	return get_cmdline_exe();
 }
 
 
