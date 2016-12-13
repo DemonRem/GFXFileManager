@@ -235,3 +235,28 @@ bool CWFileManager::CreateDirectoryRecursive(const char* filename) {
 	return result;
 }
 
+
+//
+// File Information
+//
+
+int CWFileManager::FileNameFromHandle(int hFile, char* dst, size_t count) {
+	auto file = this->open_files.find(hFile);
+
+	if (file == this->open_files.end()) {
+		// File Handle is invalid
+		// 유효하지 않은 파일 객체 이다.
+		SHOW_ERROR("File Handle is invalid", "Error during FileNameFromHandle");
+		return 0;
+	}
+
+	int len = strlen(file->second.filename);
+
+	if (len >= count)
+		return 0;
+
+	strcpy_s(dst, count, file->second.filename);
+
+	return 1;
+}
+

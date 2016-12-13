@@ -65,7 +65,12 @@ public:
 	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown); //
 	virtual int Create(const char* filename, int unknown); //
 
+	
+	//
+	// File Information
+	//
 
+	virtual int FileNameFromHandle(int hFile, char* dst, size_t count);
 public:
 	CWFileManager();
 
