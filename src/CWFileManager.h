@@ -71,6 +71,7 @@ public:
 	//
 
 	virtual int FileNameFromHandle(int hFile, char* dst, size_t count);
+	virtual int GetFileSize(int hFile, LPDWORD lpFileSizeHigh); //
 public:
 	CWFileManager();
 

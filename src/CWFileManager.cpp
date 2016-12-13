@@ -260,3 +260,16 @@ int CWFileManager::FileNameFromHandle(int hFile, char* dst, size_t count) {
 	return 1;
 }
 
+int CWFileManager::GetFileSize(int hFile, LPDWORD lpFileSizeHigh) {
+	auto file = this->open_files.find(hFile);
+
+	if (file == this->open_files.end()) {
+		// File Handle is invalid
+		// 유효하지 않은 파일 객체 이다.
+		SHOW_ERROR("File Handle is invalid", "Error during GetFileSize");
+		return 0;
+	}
+
+	return ::GetFileSize(file->second.hFile, lpFileSizeHigh);
+}
+
