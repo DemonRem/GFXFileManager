@@ -240,8 +240,8 @@ char* CPFileManager::CmdLinePath(void){
 	return "Silkroad.exe";
 }
 
-char* CPFileManager::CmdLineArgs(void) {
-	debug(DEBUG_OTHER, "WFM::CmdLinePath() = \"/22 0 0\"\n");
+char* CPFileManager::CmdLineExe(void) {
+	debug(DEBUG_OTHER, "WFM::CmdLineExe() = \"/22 0 0\"\n");
 	return "/22 0 0";
 }
 

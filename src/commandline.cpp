@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 char g_cmdLinePath[260];
-char g_cmdLineArgs[260];
+char g_cmdLineExe[260];
 
 void populate_cmdline() {
 
@@ -29,12 +29,15 @@ void populate_cmdline() {
 	if (ext[strlen(ext) - 2] = '"') {
 		ext[strlen(ext) - 2] = 0;
 	}
+
+	_makepath_s(g_cmdLinePath, sizeof(g_cmdLinePath), drive, dir, 0, 0);
+	_makepath_s(g_cmdLineExe, sizeof(g_cmdLineExe), 0, 0, filename, ext);
 }
 
-inline char *get_cmdline_exe() {
+char *get_cmdline_path() {
 	return g_cmdLinePath;
 }
 
-inline char *get_cmdline_args() {
-	return g_cmdLineArgs;
+char *get_cmdline_exe() {
+	return g_cmdLineExe;
 }

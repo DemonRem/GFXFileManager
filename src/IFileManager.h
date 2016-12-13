@@ -124,7 +124,7 @@ public:
 	virtual char* CmdLinePath(void) = 0;
 
 	// Get raw commandline args
-	virtual char* CmdLineArgs(void) = 0; //
+	virtual char* CmdLineExe(void) = 0; //
 
 	// Unknown function that gets two variables
 	virtual void getShit(shit_t* shit) = 0; //get shit
