@@ -286,3 +286,16 @@ BOOL CWFileManager::GetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME
 	return ::GetFileTime(file->second.hFile, lpCreationTime, 0, lpLastWriteTime);
 }
 
+BOOL CWFileManager::SetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime) {
+	auto file = this->open_files.find(hFile);
+
+	if (file == this->open_files.end()) {
+		// File Handle is invalid
+		// 유효하지 않은 파일 객체 이다.
+		SHOW_ERROR("File Handle is invalid", "Error during SetFileTime");
+		return 0;
+	}
+
+	return ::SetFileTime(file->second.hFile, lpCreationTime, 0, lpLastWriteTime);
+}
+
