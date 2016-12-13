@@ -83,7 +83,7 @@ int CPFileManager::CloseAllFiles() {
 	return 1;
 }
 
-int CPFileManager::MainModuleHandle(void) {
+HMODULE CPFileManager::MainModuleHandle(void) {
 
 	debug(DEBUG_OTHER, "WFM::MainModuleHandle() = %08x\n", this->mainModuleHandle);
 

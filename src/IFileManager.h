@@ -55,7 +55,7 @@ public:
 	virtual int CloseAllFiles(void) = 0; //Similar in both implementations
 
 	// Returns the MainModule-handle
-	virtual int MainModuleHandle(void) = 0;
+	virtual HMODULE MainModuleHandle(void) = 0;
 
 
 	virtual int Function_9(int) = 0; //CPFileManager returns -1

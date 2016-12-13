@@ -11,7 +11,7 @@ private:
 	char current_dir[260]; //0x0108 guessed ???
 	__int32 bIsOpen; //0x020C 
 	char pad_0x0210[0xC]; //0x0210
-	DWORD mainModuleHandle; //0x021C Get by function_8 
+	HMODULE mainModuleHandle; //0x021C Get by function_8 
 	
 	char pad_0x0220[0x1C]; //0x0220
 	unsigned char bSomething; //0x023C bool
@@ -38,7 +38,7 @@ public:
 	virtual int IsOpen(void);
 
 	virtual int CloseAllFiles(void);
-	virtual int MainModuleHandle(void);
+	virtual HMODULE MainModuleHandle(void);
 	virtual int Function_9(int);
 
 
