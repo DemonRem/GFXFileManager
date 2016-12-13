@@ -72,6 +72,7 @@ public:
 
 	virtual int FileNameFromHandle(int hFile, char* dst, size_t count);
 	virtual int GetFileSize(int hFile, LPDWORD lpFileSizeHigh); //
+	virtual BOOL GetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime); //
 public:
 	CWFileManager();
 
