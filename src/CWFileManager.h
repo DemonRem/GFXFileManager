@@ -67,8 +67,8 @@ public:
 	// Files
 	//
 
-	virtual int Open(CJArchiveFm* fm, const char *filename, int access, int unknown);
 	virtual int Open(const char *filename, int access, int unknown);
+	virtual int Open(CJArchiveFm* fm, const char *filename, int access, int unknown);
 
 	virtual int Function_12(void); //return -1
 	virtual int Function_13(void); //return 0
