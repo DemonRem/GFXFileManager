@@ -280,6 +280,23 @@ int CWFileManager::Close(int hFile) {
 }
 
 
+int CWFileManager::Read(int hFile, char* lpBuffer, int nNumberOfBytesToRead, unsigned long *lpNumberOfBytesRead) {
+	auto file = this->open_files.find(hFile);
+
+	if (file == this->open_files.end()) {
+		// File Handle is invalid
+		// 유효하지 않은 파일 객체 이다.
+		SHOW_ERROR("File Handle is invalid", "Error during Read");
+		return 0;
+	}
+
+	BOOL result = ::ReadFile(file->second.hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, 0);
+
+	this->container_info->number_of_bytes_processed_total += *lpNumberOfBytesRead;
+
+	return result;
+}
+
 char* CWFileManager::CmdLinePath(void) {
 	return get_cmdline_path();
 }

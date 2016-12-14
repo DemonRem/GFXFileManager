@@ -77,6 +77,8 @@ public:
 
 	virtual int Delete (const char *filename);
 	virtual int Close(int hFile); //
+
+	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten);
 		
 	virtual char* CmdLinePath(void);
 	virtual char* CmdLineExe(void);
