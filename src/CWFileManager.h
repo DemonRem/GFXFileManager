@@ -62,7 +62,6 @@ public:
 
 	virtual int Function_9(int) = 0;
 
-	virtual int Delete (const char *filename);
 	//
 	// Files
 	//
@@ -75,6 +74,8 @@ public:
 
 	virtual int Create(const char* filename, int unknown); //
 	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown); //
+
+	virtual int Delete (const char *filename);
 		
 	virtual char* CmdLinePath(void);
 	virtual char* CmdLineExe(void);
