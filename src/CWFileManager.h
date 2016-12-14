@@ -79,6 +79,8 @@ public:
 	virtual int Close(int hFile); //
 
 	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten);
+	virtual int Write(int hFile, const char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten);
+
 		
 	virtual char* CmdLinePath(void);
 	virtual char* CmdLineExe(void);

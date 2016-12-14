@@ -297,6 +297,24 @@ int CWFileManager::Read(int hFile, char* lpBuffer, int nNumberOfBytesToRead, uns
 	return result;
 }
 
+int CWFileManager::Write(int hFile, const char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten) {
+	auto file = this->open_files.find(hFile);
+
+	if (file == this->open_files.end()) {
+		// File Handle is invalid
+		// 유효하지 않은 파일 객체 이다.
+		SHOW_ERROR("File Handle is invalid", "Error during Write");
+		return 0;
+	}
+
+	BOOL result = ::WriteFile(file->second.hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, 0);
+
+	this->container_info->number_of_bytes_processed_total += *lpNumberOfBytesWritten;
+
+	return result;
+}
+
+
 char* CWFileManager::CmdLinePath(void) {
 	return get_cmdline_path();
 }
