@@ -45,6 +45,12 @@ public:
 	virtual int Mode();
 	virtual int ConfigSet(int a2, int a3);
 	virtual int ConfigGet(int a2, int a3);
+
+
+	//
+	// Container
+	//
+
 	virtual int CreateContainer(const char *filename,  const char *password);
 	virtual int OpenContainer(const char *filename, const char* password, int mode);
 
@@ -57,6 +63,9 @@ public:
 	virtual int Function_9(int) = 0;
 
 	virtual int Delete (const char *filename);
+	//
+	// Files
+	//
 
 	virtual int Open(CJArchiveFm* fm, const char *filename, int access, int unknown);
 	virtual int Open(const char *filename, int access, int unknown);
