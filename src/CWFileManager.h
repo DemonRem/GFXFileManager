@@ -76,6 +76,7 @@ public:
 	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown); //
 
 	virtual int Delete (const char *filename);
+	virtual int Close(int hFile); //
 		
 	virtual char* CmdLinePath(void);
 	virtual char* CmdLineExe(void);

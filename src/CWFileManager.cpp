@@ -262,6 +262,23 @@ bool CWFileManager::CreateDirectoryRecursive(const char* filename) {
 	return result;
 }
 
+int CWFileManager::Close(int hFile) {
+	auto file = this->open_files.find(hFile);
+
+	if (file == this->open_files.end()) {
+		// File Handle is invalid
+		// 유효하지 않은 파일 객체 이다.
+		SHOW_ERROR("File Handle is invalid", "Error during Close");
+		return 0;
+	}
+
+	HANDLE file_handle = file->second.hFile;
+
+	this->open_files.erase(file);
+	this->container_info->number_of_open_files--;
+	return ::CloseHandle(file_handle);
+}
+
 
 char* CWFileManager::CmdLinePath(void) {
 	return get_cmdline_path();
