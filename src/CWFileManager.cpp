@@ -180,17 +180,28 @@ int CWFileManager::Function_13(void) {
 	return 0;
 }
 
-
-int Create(CJArchiveFm * fm, const char * filename, int unknown) {
-
-}
-
 int CWFileManager::Create(const char* filename, int unknown) {
 	if (this->CreateDirectoryRecursive(filename)) {
 		return this->Open(filename, GENERIC_READ, unknown);
 	}
 	
 	return -1;
+}
+
+int CWFileManager::Create(CJArchiveFm * fm, const char * filename, int unknown) {
+	fm->field_15 = 1;
+	fm->is_write_mode = 1;
+	fm->pFileManager = this;
+	
+	fm->hFile = this->Create(filename, unknown);;
+
+	if (fm->is_write_mode) {
+		fm->field_20 = fm->field_24;
+	} else {
+		fm->field_20 = fm->field_28;
+	}
+
+	return fm->hFile != -1;
 }
 
 // This method has a bug, see #16
