@@ -48,6 +48,10 @@ int CWFileManager::IsOpen(void) {
 	return 1;
 }
 
+HMODULE CWFileManager::MainModuleHandle(void) {
+	return this->hMainModule;
+}
+
 int CWFileManager::Function_9(int a2) {
 	// harcoded, always -1
 	return -1;

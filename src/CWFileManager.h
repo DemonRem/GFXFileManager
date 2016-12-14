@@ -33,7 +33,9 @@ private:
 	// consider switching this to unordered_map (wasnt present in VC80)
 	std::hash_map<int, OpenFileInfo> open_files; // 0x210
 
-	int opened_files_ident;
+	HMODULE hMainModule; // 0x21C
+
+	int opened_files_ident; // 0x238
 	char disallow_uppercase_filename; // 0x23C
 
 	error_handler_t error_handler; // 0x268
@@ -48,8 +50,9 @@ public:
 
 	virtual int IsOpen(void) = 0; //
 
-	
 	virtual int CloseAllFiles(void) = 0; //Similar in both implementations
+
+	virtual HMODULE MainModuleHandle(void);
 
 	virtual int Function_9(int) = 0;
 
