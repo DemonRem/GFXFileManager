@@ -48,6 +48,16 @@ int CWFileManager::IsOpen(void) {
 	return 1;
 }
 
+int CWFileManager::CloseAllFiles(void) {
+	// fk, no ranged for loops in VS2010
+
+	for (auto it = open_files.begin(); it != open_files.end(); it++) {
+		this->Close(it->first);
+	}
+	
+	return 1;
+}
+
 HMODULE CWFileManager::MainModuleHandle(void) {
 	return this->hMainModule;
 }
