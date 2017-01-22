@@ -111,8 +111,8 @@ public:
 	virtual int UpdateCurrentDirectory(void);
 	virtual int Function_50(int);
 
-	virtual int Function53(int); //
-	virtual int Function54(); //
+	virtual int Lock(int); //
+	virtual int Unlock(); //
 
 	virtual ~CPFileManager() { };
 

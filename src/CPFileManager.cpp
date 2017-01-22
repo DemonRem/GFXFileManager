@@ -554,17 +554,17 @@ int CPFileManager::Function_50(int a) {
 	return 0;
 }
 
-int CPFileManager::Function53(int a) {
+int CPFileManager::Lock(int a) {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function53(0x%08x) = 0\n", a);
+	debug(DEBUG_UNKNOWN, "WFM::Lock(0x%08x) = 0\n", a);
 
 
 	return 0;
 }
 
-int CPFileManager::Function54() {
+int CPFileManager::Unlock() {
 
-	debug(DEBUG_UNKNOWN, "WFM::Function54() = 0\n");
+	debug(DEBUG_UNKNOWN, "WFM::Unlock() = 0\n");
 
 	return 0;
 }

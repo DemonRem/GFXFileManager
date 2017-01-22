@@ -218,8 +218,8 @@ public:
 	//prompt error if version mismatch 
 	virtual int CheckVersion(int version);
 
-	virtual int Function53(int) = 0; //
-	virtual int Function54() = 0; //
+	virtual int Lock(int) = 0; //
+	virtual int Unlock() = 0; //
 
 
 private:
