@@ -426,6 +426,19 @@ void CWFileManager::SetHwnd(HWND hwnd) {
 	this->hwnd = hwnd;
 }
 
+
+BOOL CWFileManager::DirectoryCreate(const CHAR *lpPathName)
+{
+  SetCurrentDirectory(this->current_dir);
+  return CreateDirectory(lpPathName, 0);
+}
+
+BOOL CWFileManager::DirectoryRemove(LPCSTR lpPathName)
+{
+  SetCurrentDirectory(this->current_dir);
+  return RemoveDirectory(lpPathName);
+}
+
 shit_t* CWFileManager::getShit(struct shit_t *a2)
 {
   a2->a = 0;

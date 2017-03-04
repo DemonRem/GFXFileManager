@@ -78,6 +78,9 @@ public:
 	virtual int setShit(int a, int b);
 
 
+	virtual int DirectoryCreate(const char* name);
+	virtual int DirectoryRemove(const char* name);
+
 	
 	//
 	// File Information
