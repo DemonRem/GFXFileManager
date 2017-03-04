@@ -408,6 +408,14 @@ int CWFileManager::Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) {
 	return ::SetFilePointer(file->second.hFile, lDistanceToMove, 0, dwMoveMethod);
 }
 
+int CWFileManager::Lock(int a) {
+	return 0;
+}
+
+int CWFileManager::Unlock() {
+	return 0;
+}
+
 int CWFileManager::FileExists(char *filename, int a3)
 {
 	char fullpath[520]; // [sp+4h] [bp-20Ch]@1

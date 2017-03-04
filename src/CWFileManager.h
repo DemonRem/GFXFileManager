@@ -111,6 +111,9 @@ public:
 
 	virtual int FileExists(char* name, int flags); //
 
+	virtual int Lock(int); //
+	virtual int Unlock(); //
+
 public:
 	CWFileManager();
 
