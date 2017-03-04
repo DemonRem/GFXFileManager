@@ -7,24 +7,39 @@
 #include "CJArchiveFm.h"
 #include "searchresult.h"
 #include "result_entry_t.h"
+#include "DialogData.h"
+#include "eCallbackState.h"
 
 #define FM_VERSION 0x1007
 
 
-typedef BOOL (*error_handler_t)(void);
+typedef BOOL (__cdecl *error_handler_t)(HWND hwnd, const char *message, const char *caption);
+typedef void (__cdecl *foreach_callback_t)(CALLBACK_STATE, result_entry_t *, void*);
+
+
+#define SHOW_ERROR(msg, caption) \
+	do { \
+		if (error_handler) { \
+			if (!error_handler((HWND)1, msg, "false")) \
+				MessageBoxA(hwnd, msg, caption, MB_OK); \
+		} else { \
+			MessageBoxA(hwnd, msg, caption, MB_OK); \
+		} \
+	} \
+	while (0)
 
 
 
 class IFileManager
 {
 public:
-	virtual int get_mode(void) = 0; //returns the container-mode (1 for CP, 2 for CW)
-	virtual int Function_1(int, int) = 0; //
-	virtual int Function_2(int, int) = 0; //
+	virtual int Mode(void) = 0; //returns the container-mode (1 for CP, 2 for CW)
+	virtual int ConfigSet(int, int) = 0; //
+	virtual int ConfigGet(int, int) = 0; //
 
 	//
 	// Container
-	// 
+	//
 
 	// Create a new container
 	// Parameter:
@@ -49,45 +64,49 @@ public:
 
 
 
-	virtual int Function_7(void) = 0; //Similar in both implementations
+	virtual int CloseAllFiles(void) = 0; //Similar in both implementations
 
 	// Returns the MainModule-handle
-	virtual int getMainModule(void) = 0;
+	virtual HMODULE MainModuleHandle(void) = 0;
 
 
-	virtual int Function_9(int) = 0; //CWFileManager returns -1
+	virtual int Function_9(int) = 0; //CPFileManager returns -1
 
 
 	//
 	// Files
 	//
 
+	
+	// Open a file inside the container using a path
+	// Parameter:
+	// - filename: filename, relative to current dir or absolute path inside archive
+	// - access: 0 for open-existing, 0x80000000 for open and share_read, 0x40000000 for create_always
+	// - unknown: not used for original CPFileManager
+	// Return:
+	// Handle of opened file (can be any number or pointer) or -1 if opening is was unsuccessful
+	virtual int Open(const char *filename, int access, int unknown) = 0; //
+
+
 	// Open a file inside the container using the CJArchiveFm-class
 	// Parameter:
 	// - fm: A valid pointer to the CJArchiveFm-class
 	// - filename: filename, relative to current dir or absolute path inside archive
 	// - access: 0 for open-existing, 0x80000000 for open and share_read, 0x40000000 for create_always
-	// - unknown: not used for original CWFileManager
-	virtual int Open2(CJArchiveFm* fm, const char *filename, int access, int unknown) = 0;
-
-	// Open a file inside the container using a path
-	// Parameter:
-	// - filename: filename, relative to current dir or absolute path inside archive
-	// - access: 0 for open-existing, 0x80000000 for open and share_read, 0x40000000 for create_always
-	// - unknown: not used for original CWFileManager
-	// Return:
-	// Handle of opened file (can be any number or pointer) or -1 if opening is was unsuccessful
-	virtual int Open(const char *filename, int access, int unknown) = 0; //
+	// - unknown: not used for original CPFileManager
+	virtual int Open(CJArchiveFm* fm, const char *filename, int access, int unknown) = 0;
 
 	virtual int Function_12(void) = 0; //return -1
 	virtual int Function_13(void) = 0; //return 0
-	virtual int Function_14(int, int, int) = 0; //
-	virtual int Function_15(char* fullpath, int) = 0; //
+
+	virtual int Create(const char* filename, int unknown) = 0; //
+	virtual int Create(CJArchiveFm * fm, const char * filename, int unknown) = 0; //
+	
 
 	// Delete a file by name
 	// Parameter:
 	// - filename: name of file to delete
-	virtual int Delete(char *filename) = 0; //
+	virtual int Delete(const char *filename) = 0; //
 
 	// Close file by handle
 	// Parameter:
@@ -100,7 +119,7 @@ public:
 	// lpBuffer: pointer to reserved memory for read operation
 	// nNumberOfBytesToWrite: size of lpBuffer
 	// lpNumberOfBytesWritten: pointer to memory, will contain the number of bytes read from the file
-	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten) = 0;
+	virtual int Read(int hFile, char* lpBuffer, int nNumberOfBytesToRead, unsigned long *lpNumberOfBytesRead) = 0;
 
 	// Write a number of bytes to file
 	// Parameter:
@@ -108,19 +127,19 @@ public:
 	// lpBuffer: pointer to reserved memory for read operation
 	// nNumberOfBytesToWrite: size of lpBuffer
 	// lpNumberOfBytesWritten: pointer to memory, will contain the number of bytes written to the file
-	virtual int Write(int hFile, char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten) = 0;
+	virtual int Write(int hFile, const char* lpBuffer, int nNumberOfBytesToWrite, unsigned long *lpNumberOfBytesWritten) = 0;
 
 
 
 
 	// Get the full path of the executable
-	virtual char* getCmdLine_Path(void) = 0;
+	virtual char* CmdLinePath(void) = 0;
 
 	// Get raw commandline args
-	virtual char* getCmdLine_Args(void) = 0; //
+	virtual char* CmdLineExe(void) = 0; //
 
 	// Unknown function that gets two variables
-	virtual void getShit(shit_t* shit) = 0; //get shit
+	virtual shit_t* getShit(shit_t* shit) = 0; //get shit
 
 	// Unknown function that sets two variables
 	virtual int setShit(int a, int b) = 0; //set shit
@@ -133,21 +152,21 @@ public:
 	// Create a new directory in the container
 	// Parameter:
 	// - name: name of the directory
-	virtual int CreateDirectory(const char* name) = 0;
+	virtual int DirectoryCreate(const char* name) = 0;
 
 	// Delete a directory in the container
 	// Parameter:
 	// - name: name of the directory
-	virtual int RemoveDirectory(const char* name) = 0;
+	virtual int DirectoryRemove(const char* name) = 0;
 
 
 	virtual bool ResetDirectory(void) = 0; //
-	virtual bool ChangeDirectory(char* dirname) = 0; //
+	virtual bool ChangeDirectory(const char* dirname) = 0; //
 	virtual int GetDirectoryName(size_t buffersize, char* Dst) = 0; //
 
 
-	virtual int SetVirtualPath(char *path) = 0; //set root
-	virtual int GetVirtualPath(char* dest) = 0; //similar on both impl
+	virtual int SetVirtualPath(const char *path) = 0; //set root
+	virtual int GetVirtualPath(char *dest) = 0; //similar on both impl
 
 
 	//
@@ -159,7 +178,7 @@ public:
 	// - search: result structure representing a handle for the search
 	// - pattern: matching pattern for a list of files
 	// - entry: the output-structure for the first entry of the resulting list of files
-	virtual searchresult_t* FindFirstFile(searchresult_t* search, char* pattern, result_entry_t* entry) = 0; //Find First File
+	virtual searchresult_t* FindFirstFile(searchresult_t* search, const char* pattern, result_entry_t* entry) = 0; //Find First File
 
 	// Get the next file entry in the search result list
 	// Parameter:
@@ -183,37 +202,40 @@ public:
 	virtual BOOL SetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime) = 0; //
 	virtual int Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) = 0; //
 
-
 	//
 	// Others
 	//
 
-	virtual int get_hwnd(void) = 0; //
-	virtual void set_hwnd(int) = 0; //
-	virtual void set_error_handler(error_handler_t callback) = 0; //sets a callback
+	virtual HWND GetHwnd(void) = 0; //
+	virtual void SetHwnd(HWND) = 0; //
+	virtual void RegisterErrorHandler(error_handler_t callback) = 0; //sets a callback
 
-	virtual int Function_42(int, int, int, int) = 0; //Search file on disk (historic code?)
-	virtual int ImportFile(char *srcdir, char *dstdir, char *filename, int d) = 0; //open file(s)
-	virtual int Function_44(int, int, int, int) = 0; //create directories on disk
-	virtual int Function_45(int, int, int, int) = 0; //Open File(s) and write
+	virtual int ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) = 0;
+	virtual int ImportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir) = 0;
+	virtual int ExportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) = 0;
+	virtual int ExportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir) = 0; // create_target_dir is unused
 
 	// Returns: 0 on found, -1 on not found
-	virtual int file_exists(char* name, int flags) = 0; //
+	virtual int FileExists(char* name, int flags) = 0; //
 
 	// Shows an open file dialog
-	virtual int ShowDialog(int*);
-	virtual int Function_48(int a, int b, int c); //
-	virtual int Function_49(void) = 0; //
+	virtual int ShowDialog(DialogData *data);
+	virtual int ForeachEntryInContainer(foreach_callback_t cb, const char *filter, void *userstate);
+	virtual int UpdateCurrentDirectory(void) = 0; //
 	virtual int Function_50(int) = 0; //returns zero in both impl.
 
 	// get the version of this file manager
-	virtual int getVersion(void);
+	virtual int GetVersion(void);
 
 	//prompt error if version mismatch 
-	virtual int checkVersion(int version);
+	virtual int CheckVersion(int version);
 
-	virtual int Function53(int) = 0; //
-	virtual int Function54() = 0; //
-	virtual ~IFileManager(void) {
-	};
+	virtual int Lock(int) = 0; //
+	virtual int Unlock() = 0; //
+
+
+private:
+	void loop_container_content(foreach_callback_t cb, const char *filter, void* userstate);
+
+	
 };//Size=0x0004

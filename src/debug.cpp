@@ -2,7 +2,15 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int m_group = DEBUG_FULL;
+
+#include <unordered_map>
+
+
+int m_group = DEBUG_FILE_GEN;
+FILE *dbgfile;
+
+
+int lines = 0;
 
 int debug(debug_group group, const char *format, ...) {
 	va_list vl;
@@ -12,10 +20,15 @@ int debug(debug_group group, const char *format, ...) {
 	if (!(group & m_group)) {
 		return 0;
 	}
-
+	
 	va_start(vl, format);
 
 	vprintf(format, vl);
+	vfprintf(dbgfile, format, vl);
+
+	if (++lines > 2) {
+		fflush(dbgfile);
+	}
 
 	va_end(vl);
 
