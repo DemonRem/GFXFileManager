@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <stdio.h>
 
-#include "CPFileManager.h"
+//#include "CPFileManager.h"
 //#include "CWFileManager.h"
 #include "debug.h"
 
@@ -31,9 +31,3 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved) {
 
 	return TRUE;
 }
-
-extern "C" __declspec(dllexport) void __stdcall GFXDllReleaseObject(IFileManager* object) {
-	debug(DEBUG_OBJECT, "GFXDllReleaseObject(%08x)\n", object);
-	delete object;
-}
-
