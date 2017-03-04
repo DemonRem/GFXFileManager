@@ -587,6 +587,43 @@ int CWFileManager::GetDirectoryName(rsize_t SizeInBytes, char *outname)
 	return strlen(outname);
 }
 
+bool CWFileManager::ChangeDirTo(const char *lpPathName) {
+	bool ret; 
+
+	if ( !*lpPathName )
+		return 1;
+
+	ret = SetCurrentDirectory(lpPathName);
+
+	GetCurrentDirectory(sizeof(this->current_dir), this->current_dir);
+
+	if ( this->current_dir[strlen(this->current_dir)] != '\\' )// check if end == "\"
+		strcat_s(this->current_dir, sizeof(this->current_dir), "\\");
+
+	if ( !ret )
+	{
+		// 폴더 변경 실패.
+		SHOW_ERROR("Change folder failed", "ChangeDirTo");
+	}
+	return ret;
+}
+
+bool CWFileManager::ChangeDirectory(const char *lpPathName)
+{
+	if ( !*lpPathName )
+		return 1;
+
+	SetCurrentDirectory(this->current_dir);
+
+	return ChangeDirTo(lpPathName);
+}
+
+bool CWFileManager::ResetDirectory()
+{
+	return ChangeDirTo(this->initial_path);
+}
+
+
 BOOL CWFileManager::DirectoryCreate(const CHAR *lpPathName)
 {
   SetCurrentDirectory(this->current_dir);

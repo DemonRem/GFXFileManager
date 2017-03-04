@@ -81,6 +81,9 @@ public:
 	virtual int DirectoryCreate(const char* name);
 	virtual int DirectoryRemove(const char* name);
 
+
+	virtual bool ResetDirectory(void);
+	virtual bool ChangeDirectory(const char* dirname);
 	virtual int GetDirectoryName(size_t buffersize, char* Dst);
 	
 	virtual int SetVirtualPath(const char *path);
@@ -129,5 +132,7 @@ public:
 private:
 	int GetNextFreeIndex();
 	bool CreateDirectoryRecursive(const char* filename);
+
+	bool ChangeDirTo(const char*);
 
 };
