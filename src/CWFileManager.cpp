@@ -4,6 +4,10 @@
 
 #include "commandine.h"
 
+// Shitty implemented internal funcs 
+int check_file_exists(char *lpFileName, int arg);
+int check_file_attributes(char *lpFileName, int arg);
+
 
 CWFileManager::CWFileManager()
 	: opened_files_ident(0) 
@@ -401,6 +405,46 @@ int CWFileManager::Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) {
 	return ::SetFilePointer(file->second.hFile, lDistanceToMove, 0, dwMoveMethod);
 }
 
+int CWFileManager::FileExists(char *filename, int a3)
+{
+	char fullpath[520]; // [sp+4h] [bp-20Ch]@1
+
+	strcpy_s(fullpath, 0x208u, this->current_dir);
+	strcat_s(fullpath, 0x208u, filename);
+
+	return check_file_exists(fullpath, a3);
+}
+
+int check_file_exists(char *lpFileName, int arg) {
+	return -(check_file_attributes(lpFileName, arg) != 0);
+}
+
+int check_file_attributes(char *lpFileName, int arg) {
+	DWORD attrib;
+	DWORD err;
+
+	if ( !lpFileName || arg & 0xFFFFFFF9 )
+	{
+		*__doserrno() = 0;
+		*_errno() = 22;
+		// _invalid_parameter(0, 0, 0, 0, 0);
+		return 22;
+	}
+	attrib = GetFileAttributesA(lpFileName);
+	if ( attrib == INVALID_FILE_ATTRIBUTES )
+	{
+		err = GetLastError();
+		// _dosmaperr(err);
+		return *_errno();
+	}
+	if ( !(attrib & FILE_ATTRIBUTE_DIRECTORY) && (attrib & 1) && (arg & 2) )
+	{
+		*__doserrno() = 5;
+		*_errno() = 13;
+		return *_errno();
+	}
+	return 0;
+}
 
 int CWFileManager::ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) {
 	return 0;

@@ -104,6 +104,8 @@ public:
 	virtual int ExportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir);
 	virtual int ExportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir); // create_target_dir is unused
 
+	virtual int FileExists(char* name, int flags); //
+
 public:
 	CWFileManager();
 
