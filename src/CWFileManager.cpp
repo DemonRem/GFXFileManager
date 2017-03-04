@@ -33,7 +33,6 @@ int CWFileManager::ConfigGet(int a2, int a3) {
 	return 0;
 }
 
-
 int CWFileManager::CreateContainer(const char *filename, const char *password) {
 
 	this->container_info = open_container_info_write(filename);
@@ -41,14 +40,12 @@ int CWFileManager::CreateContainer(const char *filename, const char *password) {
 	return 1;
 }
 
-
 int CWFileManager::OpenContainer(const char *filename, const char* password, int mode) {
 
 	this->container_info = open_container_info_write(filename);
 
 	return 1;
 }
-
 
 int CWFileManager::IsOpen(void) {
 	// hardcoded, always open
@@ -61,7 +58,7 @@ int CWFileManager::CloseAllFiles(void) {
 	for (auto it = open_files.begin(); it != open_files.end(); it++) {
 		this->Close(it->first);
 	}
-	
+
 	return 1;
 }
 
@@ -201,7 +198,7 @@ int CWFileManager::Create(const char* filename, int unknown) {
 	if (this->CreateDirectoryRecursive(filename)) {
 		return this->Open(filename, GENERIC_READ, unknown);
 	}
-	
+
 	return -1;
 }
 
@@ -209,7 +206,7 @@ int CWFileManager::Create(CJArchiveFm * fm, const char * filename, int unknown) 
 	fm->field_15 = 1;
 	fm->is_write_mode = 1;
 	fm->pFileManager = this;
-	
+
 	fm->hFile = this->Create(filename, unknown);;
 
 	if (fm->is_write_mode) {
@@ -225,7 +222,7 @@ int CWFileManager::Create(CJArchiveFm * fm, const char * filename, int unknown) 
 bool CWFileManager::CreateDirectoryRecursive(const char* filename) {
 	char buffer[512] = {0};
 	char *token;
-	
+
 	char previous_dir[512] = {0};
 
 	GetCurrentDirectory(sizeof(previous_dir), previous_dir);
