@@ -580,6 +580,13 @@ int CWFileManager::SetVirtualPath(const char *Src)
 	return 1;
 }
 
+
+int CWFileManager::GetDirectoryName(rsize_t SizeInBytes, char *outname)
+{
+	strcpy_s(outname, SizeInBytes, this->current_dir);
+	return strlen(outname);
+}
+
 BOOL CWFileManager::DirectoryCreate(const CHAR *lpPathName)
 {
   SetCurrentDirectory(this->current_dir);

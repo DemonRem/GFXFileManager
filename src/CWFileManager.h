@@ -81,6 +81,7 @@ public:
 	virtual int DirectoryCreate(const char* name);
 	virtual int DirectoryRemove(const char* name);
 
+	virtual int GetDirectoryName(size_t buffersize, char* Dst);
 	
 	virtual int SetVirtualPath(const char *path);
 	virtual int GetVirtualPath(char *dest);
