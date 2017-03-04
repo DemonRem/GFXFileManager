@@ -8,6 +8,9 @@
 int check_file_exists(char *lpFileName, int arg);
 int check_file_attributes(char *lpFileName, int arg);
 
+int find_populate_result_entry(result_entry_t *result_entry);
+
+
 
 CWFileManager::CWFileManager()
 	: opened_files_ident(0) 
@@ -475,6 +478,78 @@ void CWFileManager::SetHwnd(HWND hwnd) {
 }
 
 
+int find_populate_result_entry(result_entry_t *result_entry)
+{
+	strcpy_s(result_entry->filename, 89u, result_entry->find_data.cFileName);
+
+
+	result_entry->file_time.dwLowDateTime = result_entry->find_data.ftCreationTime.dwHighDateTime;
+	result_entry->file_time.dwHighDateTime = result_entry->find_data.ftLastWriteTime.dwLowDateTime;
+
+	result_entry->LowDateTime = result_entry->find_data.ftCreationTime.dwLowDateTime;
+	result_entry->HighDateTime = result_entry->find_data.ftLastWriteTime.dwHighDateTime;
+
+	result_entry->size =  result_entry->find_data.nFileSizeLow;
+
+
+	result_entry->field_18 = 0;
+	result_entry->field_1C = 0;
+	result_entry->field_10 = 0;
+	result_entry->field_14 = 0;
+	result_entry->type = ((result_entry->find_data.dwFileAttributes & 0x10) != 16) + 1;
+	return 0;
+}
+
+
+struct searchresult_t * CWFileManager::FindFirstFile(struct searchresult_t *search_result, const CHAR *lpFileName, struct result_entry_t *result_entry)
+{
+	HANDLE hFind;
+	struct searchresult_t *result;
+	WIN32_FIND_DATA find_data;
+
+	::SetCurrentDirectory(this->current_dir);
+
+	hFind = ::FindFirstFile(lpFileName, &result_entry->find_data);
+	search_result->hFind = hFind;
+	if ( hFind == INVALID_HANDLE_VALUE )
+	{
+		search_result->success = 0;
+		result = search_result;
+	}
+	else
+	{
+		search_result->success = 1;
+		memcpy(&find_data, &result_entry->find_data, sizeof(find_data));
+		find_populate_result_entry(result_entry);
+		result = search_result;
+	}
+	return result;
+}
+
+int CWFileManager::FindNextFile(struct searchresult_t *a2, struct result_entry_t *a1)
+{
+	int result; // eax@2
+	WIN32_FIND_DATA v4; // [sp-140h] [bp-14Ch]@2
+
+	if ( ::FindNextFile(a2->hFind, &(a1->find_data)) )
+	{
+		memcpy(&v4, &a1->find_data, sizeof(v4));
+		find_populate_result_entry(a1);
+		result = 1;
+	}
+	else
+	{
+		a2->success = 0;
+		result = 0;
+	}
+	return result;
+}
+
+int CWFileManager::FindClose(struct searchresult_t *a2)
+{
+	::FindClose(a2->hFind);
+	return 1;
+}
 BOOL CWFileManager::DirectoryCreate(const CHAR *lpPathName)
 {
   SetCurrentDirectory(this->current_dir);

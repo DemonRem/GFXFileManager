@@ -7,7 +7,7 @@ enum entry_type : char {
 	ENTRY_FILE = 2
 };
 
-class result_entry_t
+class result_entry_t_old
 {
 public:
 	__int32 N0000001B; //0x0000 
@@ -23,4 +23,18 @@ public:
 
 };//Size=0x007F
 
+struct result_entry_t
+{
+  int LowDateTime;
+  FILETIME file_time;
+  int HighDateTime;
+  int field_10;
+  int field_14;
+  int field_18;
+  int field_1C;
+  int size;
+  char type;
+  char filename[89];
+  WIN32_FIND_DATAA find_data;
+};
 

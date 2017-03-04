@@ -61,10 +61,10 @@ void IFileManager::loop_container_content(foreach_callback_t cb, const char *fil
 		do {
 
 			// Ignore everything thats not a directory or starts with a dot "."
-			if (entry.type == ENTRY_FOLDER && entry.name[0] != '.') {
+			if (entry.type == ENTRY_FOLDER && entry.filename[0] != '.') {
 				cb(CALLBACK_STATE_ENTER_DIR, &entry, userstate);
 
-				if ( this->ChangeDirectory(entry.name) ) {
+				if ( this->ChangeDirectory(entry.filename) ) {
 					loop_container_content(cb, filter, userstate);
 
 					this->ChangeDirectory("..");

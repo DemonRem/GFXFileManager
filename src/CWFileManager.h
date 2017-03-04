@@ -82,6 +82,11 @@ public:
 	virtual int DirectoryRemove(const char* name);
 
 	
+
+	virtual searchresult_t* FindFirstFile(searchresult_t* search, const char* pattern, result_entry_t* entry);
+	virtual int FindNextFile(searchresult_t* search, result_entry_t* entry);
+	virtual int FindClose(searchresult_t* search);
+
 	//
 	// File Information
 	//

@@ -369,11 +369,11 @@ searchresult_t* CPFileManager::FindFirstFile(searchresult_t* search, const char*
 		entry->type = ENTRY_FOLDER;
 
 		
-		entry->timestamp.dwLowDateTime = 0x80000;
+		entry->file_time.dwLowDateTime = 0x80000;
 
 		entry->size = 1337;
 		
-		strcpy_s(entry->name, sizeof(entry->name), "TestingEntry");
+		strcpy_s(entry->filename, sizeof(entry->filename), "TestingEntry");
 		
 		this->bListMoreFiles--;
 	}
@@ -394,7 +394,7 @@ int CPFileManager::FindNextFile(searchresult_t* search, result_entry_t* entry) {
 
 		entry->type = ENTRY_FILE;
 
-		strcpy_s(entry->name, sizeof(entry->name), "TestingFile.txt");
+		strcpy_s(entry->filename, sizeof(entry->filename), "TestingFile.txt");
 		
 		this->bListMoreFiles--;
 	}
