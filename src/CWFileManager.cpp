@@ -401,6 +401,23 @@ int CWFileManager::Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) {
 	return ::SetFilePointer(file->second.hFile, lDistanceToMove, 0, dwMoveMethod);
 }
 
+
+int CWFileManager::ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) {
+	return 0;
+}
+
+int CWFileManager::ImportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir){
+	return 0;
+}
+
+int CWFileManager::ExportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir){
+	return 0;
+}
+
+int CWFileManager::ExportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir){
+	return 0;
+}
+
 HWND CWFileManager::GetHwnd(void) {
 	return this->hwnd;
 }
