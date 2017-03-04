@@ -43,13 +43,13 @@ public:
 	virtual int OpenContainer(const char *filename, const char* password, int mode);
 	virtual int CloseContainer(void);
 
-	virtual int IsOpen(void) = 0; //
+	virtual int IsOpen(void); //
 
-	virtual int CloseAllFiles(void) = 0; //Similar in both implementations
+	virtual int CloseAllFiles(void); //Similar in both implementations
 
 	virtual HMODULE MainModuleHandle(void);
 
-	virtual int Function_9(int) = 0;
+	virtual int Function_9(int);
 
 	//
 	// Files
