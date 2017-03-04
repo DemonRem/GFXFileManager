@@ -421,3 +421,9 @@ int CWFileManager::setShit(int a2, int a3)
   return 0;
 }
 
+int CWFileManager::CloseContainer()
+{
+  open_container_info_delete(this->container_info);
+  this->container_info = 0;                     // // doesnt this set the inuse flag to 0 ???
+  return 1;
+}

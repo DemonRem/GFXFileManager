@@ -41,6 +41,7 @@ public:
 
 	virtual int CreateContainer(const char *filename,  const char *password);
 	virtual int OpenContainer(const char *filename, const char* password, int mode);
+	virtual int CloseContainer(void);
 
 	virtual int IsOpen(void) = 0; //
 
