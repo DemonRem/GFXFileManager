@@ -26,7 +26,7 @@ extern "C" __declspec(dllexport) int __stdcall  GFXDllCreateObject(int mode, IFi
 	if (mode == MODE_ARCHIVE) {
 		*object = new CPFileManager();
 	} else if (mode == MODE_FILESYSTEM) {
-		*object = new CPFileManager();
+		*object = new CWFileManager();
 	} else {
 		*object = 0;
 	}
