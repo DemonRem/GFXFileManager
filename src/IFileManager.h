@@ -127,7 +127,7 @@ public:
 	virtual char* CmdLineExe(void) = 0; //
 
 	// Unknown function that gets two variables
-	virtual void getShit(shit_t* shit) = 0; //get shit
+	virtual shit_t* getShit(shit_t* shit) = 0; //get shit
 
 	// Unknown function that sets two variables
 	virtual int setShit(int a, int b) = 0; //set shit

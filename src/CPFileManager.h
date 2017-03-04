@@ -61,7 +61,7 @@ public:
 	virtual char* CmdLineExe(void); 
 
 
-	virtual void getShit(shit_t* shit); //get shit
+	virtual shit_t* getShit(shit_t* shit); //get shit
 	virtual int setShit(int a, int b); //set shit
 
 	

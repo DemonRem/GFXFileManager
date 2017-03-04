@@ -409,3 +409,15 @@ void CWFileManager::SetHwnd(HWND hwnd) {
 	this->hwnd = hwnd;
 }
 
+shit_t* CWFileManager::getShit(struct shit_t *a2)
+{
+  a2->a = 0;
+  a2->b = 0;
+  return a2;
+}
+
+int CWFileManager::setShit(int a2, int a3)
+{
+  return 0;
+}
+

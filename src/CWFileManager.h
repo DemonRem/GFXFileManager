@@ -85,6 +85,9 @@ public:
 	virtual char* CmdLinePath(void);
 	virtual char* CmdLineExe(void);
 
+	virtual shit_t* getShit(shit_t* shit);
+	virtual int setShit(int a, int b);
+
 
 	
 	//

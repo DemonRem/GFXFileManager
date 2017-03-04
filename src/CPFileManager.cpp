@@ -246,13 +246,15 @@ char* CPFileManager::CmdLineExe(void) {
 }
 
 
-void CPFileManager::getShit(shit_t* shit) {
+shit_t* CPFileManager::getShit(shit_t* shit) {
 
 	debug(DEBUG_OTHER, "WFM::getShit(0x%x)\n", shit);
 
 
 	shit->a = 0;
 	shit->b = 0;
+
+	return shit;
 }
 
 int CPFileManager::setShit(int a, int b) {
