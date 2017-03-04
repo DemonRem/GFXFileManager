@@ -96,6 +96,8 @@ public:
 
 	virtual HWND GetHwnd(void);
 	virtual void SetHwnd(HWND);
+	virtual void RegisterErrorHandler(error_handler_t callback);
+
 
 	virtual int ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir);
 	virtual int ImportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir);

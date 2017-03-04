@@ -418,6 +418,10 @@ int CWFileManager::ExportFile(const char *srcdir, const char *dstdir, const char
 	return 0;
 }
 
+void CWFileManager::RegisterErrorHandler(error_handler_t callback) {
+	this->error_handler = error_handler;
+}
+
 HWND CWFileManager::GetHwnd(void) {
 	return this->hwnd;
 }
