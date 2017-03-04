@@ -416,6 +416,10 @@ int CWFileManager::Unlock() {
 	return 0;
 }
 
+int CWFileManager::Function_50(int a) {
+	return 0;
+}
+
 int CWFileManager::UpdateCurrentDirectory() {
 	return 0;
 }

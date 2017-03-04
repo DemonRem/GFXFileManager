@@ -116,6 +116,9 @@ public:
 
 
 	virtual int UpdateCurrentDirectory(void); //
+	virtual int Function_50(int); // returns zero in both impl.
+
+
 	virtual int Lock(int); //
 	virtual int Unlock(); //
 
