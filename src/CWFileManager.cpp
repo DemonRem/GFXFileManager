@@ -562,6 +562,20 @@ int CWFileManager::FindClose(struct searchresult_t *a2)
 	::FindClose(a2->hFind);
 	return 1;
 }
+
+int CWFileManager::GetVirtualPath(char *Dst)
+{
+	strcpy_s(Dst, sizeof(this->initial_path), this->initial_path);
+	return 1;
+}
+
+int CWFileManager::SetVirtualPath(const char *Src)
+{
+	strcpy_s(this->initial_path, sizeof(this->initial_path), Src);
+	strcpy_s(this->current_dir, sizeof(this->current_dir), Src);
+	return 1;
+}
+
 BOOL CWFileManager::DirectoryCreate(const CHAR *lpPathName)
 {
   SetCurrentDirectory(this->current_dir);
