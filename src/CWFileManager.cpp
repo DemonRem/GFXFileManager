@@ -416,6 +416,10 @@ int CWFileManager::Unlock() {
 	return 0;
 }
 
+int CWFileManager::UpdateCurrentDirectory() {
+	return 0;
+}
+
 int CWFileManager::FileExists(char *filename, int a3)
 {
 	char fullpath[520]; // [sp+4h] [bp-20Ch]@1
