@@ -99,6 +99,8 @@ public:
 	virtual int Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod); //
 
 
+	virtual HWND GetHwnd(void);
+	virtual void SetHwnd(HWND);
 public:
 	CWFileManager();
 

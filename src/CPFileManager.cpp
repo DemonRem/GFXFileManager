@@ -467,13 +467,13 @@ int CPFileManager::Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) {
 }
 
 
-int CPFileManager::GetHwnd(void) {
+HWND CPFileManager::GetHwnd(void) {
 	debug(DEBUG_OTHER, "WFM::GetHwnd() = %08x\n", this->hwnd);
 
 	return this->hwnd;
 }
 
-void CPFileManager::SetHwnd(int nhwnd) {
+void CPFileManager::SetHwnd(HWND nhwnd) {
 	debug(DEBUG_OTHER, "WFM::SetHwnd(%08x)\n", nhwnd);
 
 	this->hwnd = nhwnd;

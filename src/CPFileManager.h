@@ -19,7 +19,7 @@ private:
 	char pad_0x023D[0x2B]; //0x023D
 	
 	error_handler_t error_handler; //0x0268 set by fun_A4 
-	DWORD hwnd; //0x026C 
+	HWND hwnd; //0x026C 
 	
 	char pad_0x0270[0x1D0]; //0x0270
 
@@ -91,8 +91,8 @@ public:
 
 
 	// error control
-	virtual int GetHwnd(void);
-	virtual void SetHwnd(int);
+	virtual HWND GetHwnd(void);
+	virtual void SetHwnd(HWND);
 	virtual void RegisterErrorHandler(error_handler_t callback);
 
 

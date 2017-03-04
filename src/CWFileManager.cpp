@@ -400,3 +400,12 @@ int CWFileManager::Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) {
 
 	return ::SetFilePointer(file->second.hFile, lDistanceToMove, 0, dwMoveMethod);
 }
+
+HWND CWFileManager::GetHwnd(void) {
+	return this->hwnd;
+}
+
+void CWFileManager::SetHwnd(HWND hwnd) {
+	this->hwnd = hwnd;
+}
+
