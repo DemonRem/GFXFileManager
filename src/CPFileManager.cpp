@@ -415,7 +415,7 @@ int CPFileManager::FileNameFromHandle(int hFile, char* dst, size_t count) {
 
 	char buffer[512] = {0};
 
-	DWORD ret = GetFinalPathNameByHandle((HANDLE)hFile, buffer, sizeof(buffer), 0);
+	DWORD ret = ERROR_PATH_NOT_FOUND; // GetFinalPathNameByHandle((HANDLE)hFile, buffer, sizeof(buffer), 0);
 
 	if (ret == ERROR_PATH_NOT_FOUND) {
 		debug(DEBUG_FILE, "WFM::FileNameFromHandle(%08x, %08x, %08x) = 0\n", hFile, dst, count);
