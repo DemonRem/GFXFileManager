@@ -132,11 +132,15 @@ public:
 
 
 
+	// The next two functions are bugged, see issue #19
 	// Get the full path of the executable
 	virtual char* CmdLinePath(void) = 0;
 
-	// Get raw commandline args
+	// Get the executable
 	virtual char* CmdLineExe(void) = 0; //
+
+
+
 
 	// Unknown function that gets two variables
 	virtual shit_t* getShit(shit_t* shit) = 0; //get shit
@@ -178,7 +182,7 @@ public:
 	// - search: result structure representing a handle for the search
 	// - pattern: matching pattern for a list of files
 	// - entry: the output-structure for the first entry of the resulting list of files
-	virtual searchresult_t* FindFirstFile(searchresult_t* search, const char* pattern, result_entry_t* entry) = 0; //Find First File
+	virtual searchresult_t* FindFirstFile(searchresult_t* search, const char* pattern, result_entry_t* entry) = 0;
 
 	// Get the next file entry in the search result list
 	// Parameter:
@@ -196,19 +200,19 @@ public:
 	// File Information
 	//
 
-	virtual int FileNameFromHandle(int hFile, char* dst, size_t count) = 0; //GetFileName
-	virtual int GetFileSize(int hFile, LPDWORD lpFileSizeHigh) = 0; //
-	virtual BOOL GetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime) = 0; //
-	virtual BOOL SetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime) = 0; //
-	virtual int Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) = 0; //
+	virtual int FileNameFromHandle(int hFile, char* dst, size_t count) = 0;
+	virtual int GetFileSize(int hFile, LPDWORD lpFileSizeHigh) = 0;
+	virtual BOOL GetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime) = 0;
+	virtual BOOL SetFileTime(int hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastWriteTime) = 0;
+	virtual int Seek(int hFile, LONG lDistanceToMove, DWORD dwMoveMethod) = 0;
 
 	//
 	// Others
 	//
 
-	virtual HWND GetHwnd(void) = 0; //
-	virtual void SetHwnd(HWND) = 0; //
-	virtual void RegisterErrorHandler(error_handler_t callback) = 0; //sets a callback
+	virtual HWND GetHwnd(void) = 0;
+	virtual void SetHwnd(HWND) = 0;
+	virtual void RegisterErrorHandler(error_handler_t callback) = 0;
 
 	virtual int ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) = 0;
 	virtual int ImportFile(const char *srcdir, const char *dstdir, const char *filename, bool create_target_dir) = 0;
@@ -230,12 +234,12 @@ public:
 	//prompt error if version mismatch 
 	virtual int CheckVersion(int version);
 
-	virtual int Lock(int) = 0; //
-	virtual int Unlock() = 0; //
+	virtual int Lock(int) = 0;
+	virtual int Unlock() = 0;
 
 
 private:
 	void loop_container_content(foreach_callback_t cb, const char *filter, void* userstate);
 
 	
-};//Size=0x0004
+};
