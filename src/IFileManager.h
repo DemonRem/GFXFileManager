@@ -194,8 +194,8 @@ public:
 	// Others
 	//
 
-	virtual int GetHwnd(void) = 0; //
-	virtual void SetHwnd(int) = 0; //
+	virtual HWND GetHwnd(void) = 0; //
+	virtual void SetHwnd(HWND) = 0; //
 	virtual void RegisterErrorHandler(error_handler_t callback) = 0; //sets a callback
 
 	virtual int ImportDirectory(const char *srcdir, const char *dstdir, const char *directory_name, bool create_target_dir) = 0;
