@@ -1,3 +1,4 @@
+#pragma once
 
 // Available Debug-Groups
 enum debug_group {
