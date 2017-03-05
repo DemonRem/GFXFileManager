@@ -114,10 +114,10 @@ int CPFileManager::Open(CJArchiveFm *fm, const char *filename, int access, int u
   // Magic flag stuff that is hopefully not used -.-
   fm->is_write_mode = (access >> 30) & 1;
 
-  if (fm->is_write_mode != 0) {
-    fm->field_20 = fm->field_28;
+  if (fm->is_write_mode) {
+    fm->pCurrent = fm->buffer;
   } else {
-    fm->field_20 = fm->field_24;
+    fm->pCurrent = fm->pEnd;
   }
 
   if (fm->hFile == -1) {

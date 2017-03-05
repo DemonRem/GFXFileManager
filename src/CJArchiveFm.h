@@ -22,9 +22,9 @@ public:
 	unsigned char field_15; //0x0015 
 
 	char pad_0x0016[0xA]; //0x0016
-	int field_20; //0x0020
-	int field_24; //0x0024
-	int field_28; //0x0028
+	char *pCurrent; //0x0020
+	char *pEnd; //0x0024
+	char buffer[4096]; //0x0028
 
 };//Size=0x002C
 #pragma pack(pop)

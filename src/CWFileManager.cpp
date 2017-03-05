@@ -82,9 +82,9 @@ int CWFileManager::Open(CJArchiveFm* fm, const char *filename, int access, int u
 	fm->is_write_mode = access == GENERIC_WRITE;
 
 	if (fm->is_write_mode) {
-		fm->field_20 = (int)&fm->field_28;
+		fm->pCurrent = fm->buffer;
 	} else {
-		fm->field_20 = fm->field_24;
+		fm->pCurrent = fm->pEnd;
 	}
 
 	return fm->hFile != -1;
@@ -210,9 +210,9 @@ int CWFileManager::Create(CJArchiveFm * fm, const char * filename, int unknown) 
 	fm->hFile = this->Create(filename, unknown);;
 
 	if (fm->is_write_mode) {
-		fm->field_20 = fm->field_24;
+		fm->pCurrent = fm->buffer;
 	} else {
-		fm->field_20 = fm->field_28;
+		fm->pCurrent = fm->pEnd;
 	}
 
 	return fm->hFile != -1;
