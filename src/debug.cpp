@@ -23,8 +23,10 @@ int debug(debug_group group, const char *format, ...) {
 	
 	va_start(vl, format);
 
-	vprintf(format, vl);
-	vfprintf(dbgfile, format, vl);
+	sprintf_s(buffer, sizeof(buffer), "%s\n", format);
+
+	vprintf(buffer, vl);
+	vfprintf(dbgfile, buffer, vl);
 
 	if (++lines > 2) {
 		fflush(dbgfile);
