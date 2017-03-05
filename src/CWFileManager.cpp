@@ -87,7 +87,7 @@ int CWFileManager::Open(CJArchiveFm* fm, const char *filename, int access, int u
 		fm->field_20 = fm->field_24;
 	}
 
-	return fm->hFile =! -1;
+	return fm->hFile != -1;
 }
 
 int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) {
@@ -154,10 +154,10 @@ int CWFileManager::Open(const char *filename, int dwDesiredAccess, int unknown) 
 	}
 
 	// Get Structure
-	auto finfo = this->open_files[findex];
+	auto &finfo = this->open_files[findex];
 
 	// Populate Structure
-	finfo.hFile;
+	finfo.hFile = hFile;
 	strcpy_s(finfo.filename, sizeof(finfo.filename), filename);
 
 	return findex;
