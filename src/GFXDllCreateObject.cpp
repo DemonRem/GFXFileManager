@@ -16,7 +16,6 @@ extern "C" __declspec(dllexport) int __stdcall  GFXDllCreateObject(int mode, IFi
 	char message[100];
 
 	debug(DEBUG_OBJECT, "GFXDllCreateObject(%08x, %08x, %04x)\n", mode, object, version);
-	//MessageBox(0, "CreateObject called", "", MB_OK);
 
 	if (version != TARGET_VERSION) {
 		sprintf(message, "Dll Version(%x)\nNecessary Version (%x)", version, TARGET_VERSION);
