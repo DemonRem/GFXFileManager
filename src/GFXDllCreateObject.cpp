@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include "CPFileManager.h"
 #include "CWFileManager.h"
+#include "LoggingFileManager.h"
 
 #include "debug.h"
 
@@ -26,7 +27,7 @@ extern "C" __declspec(dllexport) int __stdcall  GFXDllCreateObject(int mode, IFi
 	if (mode == MODE_ARCHIVE) {
 		*object = new CPFileManager();
 	} else if (mode == MODE_FILESYSTEM) {
-		*object = new CWFileManager();
+		*object = new LoggingFileManager<CWFileManager>();
 	} else {
 		*object = 0;
 	}

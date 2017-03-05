@@ -88,6 +88,7 @@
     <ClInclude Include="src\DialogData.h" />
     <ClInclude Include="src\eCallbackState.h" />
     <ClInclude Include="src\GFXInfo.h" />
+    <ClInclude Include="src\LoggingFileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\CPFileManager.h" />
